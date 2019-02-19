@@ -1,0 +1,10 @@
+#!/bin/sh
+
+font="$1"
+choices="poweroff\nreboot"
+result=`echo -e "$choices" | dmenu -fn "$font" -p " "`
+
+case "$result" in
+    poweroff) poweroff ;;
+    reboot) reboot ;;
+esac

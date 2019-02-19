@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# This is a dwm statusbar script
+
+get_mem () {
+    ram=`free -m | grep Mem | awk '{print $3"M/"$2"M"}'`
+    echo " $ram"
+}
+
+get_bat () {
+    BAT_PATH="/sys/class/power_supply/BAT0"
+    bat_stat=$(cat "$BAT_PATH/status")
+    bat_level=$(echo `cat "$BAT_PATH/energy_now"` `cat "$BAT_PATH/energy_full"` | awk '{print int($1/$2*100)}')
+
+    if [ "$bat_level" -lt 10 ] ; then
+        bat_img=" "
+    elif [ "$bat_level" -lt 35 ] ; then
+        bat_img=" "
+    elif [ "$bat_level" -lt 65 ] ; then
+        bat_img=" "
+    elif [ "$bat_level" -lt 95 ] ; then
+        bat_img=" "
+    else
+        bat_img=" "
+    fi
+    
+    case $bat_stat in
+        Ch*)  stat_img=" "; bat_img="" ;;
+        Dis*) stat_img="" ;;
+        *)    stat_img=" "; bat_img="" ;;
+    esac
+
+    echo "$bat_img$stat_img${bat_level}%"
+}
+
+get_vol () {
+    mute=`pamixer --get-mute`
+    if [ "$mute" == "true" ] ; then
+        vol_img=""
+        vol_level=""
+    else
+        vol_level=`pamixer --get-volume`
+        if [ "$vol_level" -eq 0 ] ; then
+            vol_img=" "
+        elif [ "$vol_level" -lt 50 ] ; then
+            vol_img=" "
+        else
+            vol_img=" "
+        fi
+        vol_level="${vol_level}%"
+    fi
+    echo "$vol_img$vol_level"
+}
+
+get_date () {
+    echo `date +" %H:%M  %F %a"`
+}
+
+get_wifi () {
+    ssid="`iw wlp3s0 info | grep 'ssid' | sed 's/\sssid\s//'`"
+    if [ ! -z "$ssid" ] ; then
+	echo " $ssid | "
+    fi
+}
+
+uname=$(echo "(`whoami`@`uname -n`)")
+while true
+do
+    xsetroot -name " $(get_mem) | $(get_wifi)$(get_bat) | $(get_vol) | $(get_date)"
+    sleep 1
+done

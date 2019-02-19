@@ -1,0 +1,3 @@
+#!/bin/sh
+
+~/src/scripts/compile "$1" && zathura "${1%.tex}.pdf"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+name="${1%.tex}"
+
+if [ $name == $1 ] ; then
+    echo "'$1' is not a LaTeX file"
+    exit 1
+else
+    pdflatex $name.tex && rm $name.log $name.aux
+fi
