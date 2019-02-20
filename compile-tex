@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# plain tex compiler script
+# usage : ./compile-tex <file-name>
+
 name="${1%.tex}"
 
 if [ $name == $1 ] ; then

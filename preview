@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# (la)tex preview script
+# usage : ./preview <compiler> <file>
+
+"$1" "$2" && zathura "${2%.tex}.pdf"
