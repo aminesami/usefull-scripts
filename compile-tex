@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # plain tex compiler script
-# usage : ./compile-tex <file-name>
+# usage : ./compile-tex <file name>
 
 name="${1%.tex}"
 
 if [ $name == $1 ] ; then
     echo "'$1' is not a TeX file"
     exit 1
-else
-    pdftex $name.tex && rm $name.log
 fi
+
+pdftex $name.tex && rm $name.log

@@ -2,12 +2,16 @@
 
 # dmenu power control script
 # usage : ./dmenu-powerctrl <font>
+# you are encouraged to change POWEROFF_CMD and REBOOT_CMD
+
+POWEROFF_CMD=shutdown -p now
+REBOOT_CMD=shutdown -r now
 
 font="$1"
 choices="poweroff\nreboot"
-result=`echo -e "$choices" | dmenu -fn "$font" -p " "`
+result=`echo -e "$choices" | dmenu -fn "$font" -p "power control "`
 
 case "$result" in
-    poweroff) poweroff ;;
-    reboot) reboot ;;
+    poweroff) $POWEROFF_CMD ;;
+    reboot) $REBOOT_CMD ;;
 esac

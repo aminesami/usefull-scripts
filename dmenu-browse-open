@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# script 
+# usage ./dmenu-browse-open <program used to open files> <start directory>
+
+OPENER="$1"
+START="$2"
+
+browse () {
+    cd "$1"
+    LIST=`ls -1`
+    RES=`echo -e "$LIST" | dmenu -p "$OPENER "`
+    if [ -d "$RES" ]
+    then
+        browse "$RES"
+    elif [ -f "$RES" ]
+    then
+        $OPENER "$RES"
+    fi
+}
+
+browse "$START"
