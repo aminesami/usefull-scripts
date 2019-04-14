@@ -33,13 +33,13 @@ get_vol () {
 }
 
 get_date () {
-    echo `date +"(%H:%M) (%F %a)"`
+    echo `date +"([%H:%M] [%F] [%a])"`
 }
 
 get_wifi () {
     ssid="`iw wlp3s0 info | grep 'ssid' | sed 's/\sssid\s//'`"
     if [ ! -z "$ssid" ] ; then
-        echo "(ssid $ssid) "
+        echo "(ssid [${ssid}]) "
     fi
 }
 
